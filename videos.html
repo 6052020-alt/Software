@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Equipo tecnológico</title>
+    <title>Galería de videos · Equipo tecnológico</title>
 
     <style>
         :root {
@@ -15,6 +15,8 @@
             --accent: #2563eb;
         }
 
+        * { box-sizing: border-box; }
+
         body {
             margin: 0;
             font-family: "Segoe UI", Arial, sans-serif;
@@ -23,7 +25,7 @@
             color: var(--ink);
         }
 
-        /* Encabezado Principal */
+        /* Encabezado principal */
         h1 {
             background-color: var(--navy);
             color: white;
@@ -53,11 +55,9 @@
             text-decoration: none;
         }
 
-        header a:hover {
-            color: var(--ink);
-        }
+        header a:hover { color: var(--ink); }
 
-        /* Barra de Navegación Responsiva */
+        /* Barra de navegación responsiva */
         .nav-bar {
             background: var(--card-bg);
             border-bottom: 1px solid var(--line);
@@ -116,13 +116,12 @@
             padding: 0 16px;
         }
 
-        /* Sección de Videos Adaptable */
+        /* Sección de videos adaptable */
         .videos {
             width: 100%;
             max-width: 800px;
             margin: 20px auto;
             padding: 0 15px;
-            box-sizing: border-box;
         }
 
         .video {
@@ -140,19 +139,20 @@
             border-radius: 6px;
             outline: none;
             background: #000;
+            display: block;
         }
 
         .video p {
-            margin-top: 15px;
+            margin: 15px 0 0;
             font-size: 18px;
             color: var(--navy);
             font-weight: 500;
         }
 
-        /* Media Queries para celulares pequeños */
+        /* Celulares */
         @media (max-width: 600px) {
             h1 {
-                font-size: 24px;
+                font-size: 22px;
                 padding: 20px 10px;
             }
 
@@ -168,12 +168,12 @@
 
             .btn {
                 width: 100%;
-                box-sizing: border-box;
+                white-space: normal;
             }
 
-            .video p {
-                font-size: 16px;
-            }
+            .videos { padding: 0 10px; }
+            .video { padding: 10px; margin-bottom: 18px; }
+            .video p { font-size: 16px; }
         }
     </style>
 </head>
@@ -186,24 +186,26 @@
         </div>
     </header>
 
+    <h1>Equipo tecnológico</h1>
+
     <nav class="nav-bar">
         <div class="wrap nav-row">
-            <a href="malla_curricular_responsive.html" class="btn btn-fill">Malla curricular</a>
+            <a href="malla_curricular_responsive.html" class="btn">Malla curricular</a>
             <a href="Areas.html" class="btn">Áreas de enfoque</a>
             <a href="objetivos.html" class="btn">Objetivos</a>
             <a href="Ingreso_y_egreso.html" class="btn">Perfil de ingreso y egreso</a>
             <a href="generalidades.html" class="btn">Generalidades</a>
             <a href="imagen (1).html" class="btn">Galería de fotos</a>
-            <a href="videos.html" class="btn">Galería de videos</a>
+            <a href="videos.html" class="btn btn-fill">Galería de videos</a>
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSe-04WR7sh0UVCAVAiGhWc1ouHj1L_gCvop00zb4R1SMkkXpw/viewform?usp=publish-editor" class="btn">Formulario</a>
         </div>
     </nav>
 
     <!-- SECCIÓN DE VIDEOS -->
-    <div class="videos">
+    <main class="videos">
 
         <div class="video">
-            <video controls>
+            <video controls playsinline preload="metadata">
                 <source src="Video impresora 3D.mp4" type="video/mp4">
                 Tu navegador no puede reproducir este video.
             </video>
@@ -211,30 +213,30 @@
         </div>
 
         <div class="video">
-            <video controls>
+            <video controls playsinline preload="metadata">
                 <source src="Prueba de arduino.mp4" type="video/mp4">
                 Tu navegador no puede reproducir este video.
             </video>
-            <p>Prueba de arduino</p>
+            <p>Prueba de Arduino</p>
         </div>
 
         <div class="video">
-            <video controls>
+            <video controls playsinline preload="metadata">
                 <source src="Control de LEDS desde el celular.mp4" type="video/mp4">
                 Tu navegador no puede reproducir este video.
             </video>
-            <p>Control de LEDS desde el celular</p>
+            <p>Control de LEDs desde el celular</p>
         </div>
 
         <div class="video">
-            <video controls>
+            <video controls playsinline preload="metadata">
                 <source src="Demostracion en macetas.mp4" type="video/mp4">
                 Tu navegador no puede reproducir este video.
             </video>
             <p>Demostración en macetas</p>
         </div>
 
-    </div>
+    </main>
 
 </body>
 </html>
