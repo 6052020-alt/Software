@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generalidades del plan de estudios</title>
+    <style>
+          *{ box-sizing:border-box; margin:0; padding:0; }
+  body{
+    font-family: Georgia, 'Times New Roman', serif;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.6;
+  }
+  .nav-bar {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--line);
+    padding: 12px 0;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 4px rgba(16, 24, 40, 0.03);
+  }
+
+  .nav-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn {
+    font-family: system-ui, sans-serif; 
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-block; 
+    padding: 8px 14px;
+    border: 1px solid var(--line); 
+    color: var(--ink-dim); 
+    background: var(--bg);
+    text-decoration: none; 
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .btn-fill { 
+    background: var(--accent); 
+    border-color: var(--accent); 
+    color: #fff; 
+  }
+
+  .btn:hover { 
+    background: var(--accent-light); 
+    color: var(--accent-dark);
+    border-color: rgba(13, 148, 136, 0.3);
+    transform: translateY(-1px);
+  }
+
+  .btn-fill:hover { 
+    background: var(--accent-dark); 
+    border-color: var(--accent-dark); 
+    color: #fff; 
+  }
+
+        h1 {
+            color: #2f3e46;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        .titulo {
+            background-color: #d8d2e0;
+            font-weight: bold;
+            color: #2f3e46;
+        }
+  :root{
+    --ink: #1E2430;
+    --ink-dim: #5B6472;
+    --bg: #FFFFFF;
+    --line: #E4E7EC;
+    --accent: #2E6F63;
+  }
+  .wrap{ max-width:760px; margin:0 auto; padding:0 24px; }
+
+  header{ border-bottom:1px solid var(--line); padding:20px 0; }
+  header .wrap{ display:flex; justify-content:space-between; align-items:center; font-family: Arial, sans-serif; font-size:14px; color:var(--ink-dim); }
+  header a{ color:var(--ink-dim); text-decoration:none; }
+  header a:hover{ color:var(--ink); }
+
+  .hero{ padding:56px 0 36px; }
+  .hero .label{ font-family:Arial, sans-serif; font-size:13px; letter-spacing:0.06em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
+  h1{ font-size:32px; font-weight:400; line-height:1.25; margin-bottom:22px; }
+  .desc{ font-size:16.5px; color:var(--ink-dim); max-width:64ch; }
+
+  section{ padding:36px 0; border-top:1px solid var(--line); }
+  .obj-num{ font-family:Arial, sans-serif; font-size:12.5px; color:var(--accent); letter-spacing:0.04em; margin-bottom:8px; }
+  h2{ font-size:22px; font-weight:400; margin-bottom:20px; }
+p{text-align:justify}
+    
+  table{ table-layout:fixed; }
+  td{ overflow-wrap:break-word; }
+  @media (max-width: 640px){
+    .wrap{ padding:0 18px; }
+    header .wrap{ flex-direction:column; align-items:flex-start; gap:4px; }
+    h1{ font-size:25px; margin-top:28px; }
+    p{ text-align:left; }
+    td{ padding:10px 8px; font-size:15px; }
+    td br{ display:none; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <span>Bachillerato · Desarrollo de Software</span>
+    <a href="index.html">← Página principal</a>
+  </div>
+</header>
+<nav class="nav-bar">
+  <div class="wrap nav-row">
+    <a href="malla_curricular_responsive.html" class="btn btn-fill">Malla curricular</a>
+    <a href="Areas.html" class="btn">Áreas de enfoque</a>
+    <a href="objetivos.html" class="btn">Objetivos</a>
+    <a href="Ingreso_y_egreso.html" class="btn">Perfil de ingreso y egreso</a>
+    <a href="generalidades.html" class="btn">Generalidades</a>
+    <a href="imagen (1).html" class="btn">Galería de fotos</a>
+    <a href="videos.html" class="btn">Galería de videos</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSe-04WR7sh0UVCAVAiGhWc1ouHj1L_gCvop00zb4R1SMkkXpw/viewform?usp=publish-editor" class="btn">Foro de discusión</a>
+  </div>
+</nav>
+    <main class="wrap">
+    <h1>1. Generalidades del plan de estudios</h1>
+    
+    <p>
+        A continuación, se presentan las generalidades del plan de estudios que contienen 
+        información clave sobre el Bachillerato Técnico Productivo en Desarrollo de Software 
+        y Servicios Digitales (BTPDSS).
+    </p>
+
+    <table>
+        <tr>
+            <td class="titulo">Nombre del bachillerato</td>
+        </tr>
+        <tr>
+            <td>Bachillerato Técnico Productivo en <br> Desarrollo de Software y Servicios Digitales</td>
+        </tr>
+        
+        <tr>
+            <td class="titulo">Duración de la especialidad</td>
+        </tr>
+        <tr>
+            <td>3 años</td>
+        </tr>
+
+        <tr>
+            <td class="titulo">Titulación a otorgar</td>
+        </tr>
+        <tr>
+            <td>Bachiller Técnico Productivo en <br> Desarrollo de Software y Servicios Digitales</td>
+        </tr>
+
+        <tr>
+            <td class="titulo">Requisitos de ingreso</td>
+        </tr>
+        <tr>
+            <td>Noveno grado</td>
+        </tr>
+
+        <tr>
+            <td class="titulo">Número de módulos del bachillerato</td>
+        </tr>
+        <tr>
+            <td>18 módulos más 3 módulos de Orientación <br> Metodológica al inicio de cada año</td>
+        </tr>
+
+        <!-- Aquí agregué la nueva tabla -->
+        <tr>
+            <td class="titulo">Modalidad educativa</td>
+        </tr>
+        <tr>
+            <td>Presencial</td>
+        </tr>
+
+        <tr>
+            <td class="titulo">Enfoque curricular</td>
+        </tr>
+        <tr>
+            <td>Educación basada en competencias</td>
+        </tr>
+
+        <tr>
+            <td class="titulo">Año de inicio de la implementación</td>
+        </tr>
+        <tr>
+            <td>2027</td>
+        </tr>
+    </table>
+
+</body>
+</html>

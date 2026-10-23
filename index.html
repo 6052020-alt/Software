@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bachillerato Técnico en Desarrollo de Software y Servicios Digitales</title>
+<style>
+  :root {
+    --ink: #101828;
+    --ink-dim: #475467;
+    --bg: #F8FAFC;
+    --card-bg: #FFFFFF;
+    --line: #EAECF0;
+    --accent: #0D9488;
+    --accent-light: #F0FDFA;
+    --accent-dark: #115E59;
+    --radius: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.7;
+  }
+
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+  /* Encabezado */
+  header { 
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--line); 
+    padding: 18px 0; 
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 1px 3px rgba(16, 24, 40, 0.05);
+  }
+  header .wrap { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    font-size: 14px; 
+    font-weight: 500;
+    color: var(--ink-dim); 
+    flex-wrap: wrap; 
+    gap: 8px; 
+  }
+
+  .badge-duration {
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  /* Botones de navegación en la parte superior (Fila horizontal / Barra de navegación) */
+  .nav-bar {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--line);
+    padding: 12px 0;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 4px rgba(16, 38, 40, 0.03);
+  }
+
+  .nav-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn {
+    font-family: system-ui, sans-serif; 
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-block; 
+    padding: 8px 14px;
+    border: 1px solid var(--line); 
+    color: var(--ink-dim); 
+    background: var(--bg);
+    text-decoration: none; 
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .btn-fill { 
+    background: var(--accent); 
+    border-color: var(--accent); 
+    color: #fff; 
+  }
+
+  .btn:hover { 
+    background: var(--accent-light); 
+    color: var(--accent-dark);
+    border-color: rgba(13, 148, 136, 0.3);
+    transform: translateY(-1px);
+  }
+
+  .btn-fill:hover { 
+    background: var(--accent-dark); 
+    border-color: var(--accent-dark); 
+    color: #fff; 
+  }
+
+  /* Hero Section */
+  .hero { 
+    padding: 20px 0 30px; 
+    text-align: center;
+  }
+  
+  .hero-badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+
+  h1 { 
+    font-size: 34px; 
+    font-weight: 800; 
+    line-height: 1.25; 
+    margin-bottom: 24px; 
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  /* Descripción principal */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 6px -1px rgba(16, 24, 40, 0.02);
+  }
+
+  p { 
+    color: var(--ink-dim); 
+    font-size: 15.5px; 
+    text-align: justify; 
+  }
+
+  section { padding: 10px 0 30px; }
+  h2 { 
+    font-size: 20px; 
+    font-weight: 700; 
+    margin-bottom: 20px; 
+    color: var(--accent-dark);
+    text-align: center;
+  }
+
+  /* Tabla comparativa estilizada */
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+  th { 
+    font-size: 13px; 
+    color: var(--accent-dark); 
+    text-transform: uppercase; 
+    letter-spacing: 0.04em; 
+    background: var(--accent-light);
+    font-weight: 700;
+  }
+  td.no { color: var(--ink-dim); font-weight: 500; }
+
+  /* Footer */
+  footer { 
+    padding: 36px 0; 
+    border-top: 1px solid var(--line); 
+    font-size: 13px; 
+    color: var(--ink-dim); 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    flex-wrap: wrap; 
+    gap: 16px; 
+  }
+
+  .visit-box {
+    text-align: center;
+    padding: 10px 20px; 
+    border: 1px solid var(--line); 
+    background: var(--card-bg);
+    border-radius: 8px;
+  }
+  .visit-box .label { font-size: 11px; letter-spacing: 0.04em; color: var(--ink-dim); text-transform: uppercase; display: block; font-weight: 600;}
+  #visit-counter { font-size: 24px; font-weight: bold; color: var(--accent); line-height: 1.2; }
+
+  /* Mobile responsiveness */
+  @media (max-width: 640px){
+    .wrap { padding: 0 16px; }
+    header .wrap { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .hero { padding: 20px 0; }
+    h1 { font-size: 24px; }
+    .card { padding: 20px; }
+    .nav-row { flex-direction: column; align-items: stretch; }
+    .btn { text-align: center; }
+    footer { flex-direction: column; align-items: center; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span>Bachillerato · Desarrollo de Software</span>
+    <span class="badge-duration">Duración: 3 años</span>
+  </div>
+</header>
+
+<!-- Barra de navegación con los botones organizados en fila arriba -->
+<nav class="nav-bar">
+  <div class="wrap nav-row">
+    <a href="malla_curricular_responsive.html" class="btn btn-fill">Malla curricular</a>
+    <a href="Areas.html" class="btn">Áreas de enfoque</a>
+    <a href="objetivos.html" class="btn">Objetivos</a>
+    <a href="Ingreso_y_egreso.html" class="btn">Perfil de ingreso y egreso</a>
+    <a href="generalidades.html" class="btn">Generalidades</a>
+    <a href="imagen (1).html" class="btn">Galería de fotos</a>
+    <a href="videos.html" class="btn">Galería de videos</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSe-04WR7sh0UVCAVAiGhWc1ouHj1L_gCvop00zb4R1SMkkXpw/viewform?usp=publish-editor" class="btn">Formulario para preguntas</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div style="text-align: center;">
+    <figure>
+      <img src="INNG1.jpg" width="400px" height="300px" style="max-width: 100%; height: auto; border-radius: var(--radius);">
+    </figure>
+    <div class="hero">
+      <h1>Bachillerato Técnico en Desarrollo de Software y Servicios Digitales</h1>
+    </div>
+
+    <!-- Descripción principal -->
+    <div class="card">
+      <p>
+        El Bachillerato Técnico Vocacional en Desarrollo de Software y Servicios Informáticos es una opción de educación media orientada a preparar a los estudiantes de manera especializada para incorporarse al sector tecnológico y productivo. A diferencia de los bachilleratos generales, esta modalidad tiene una duración de tres años y se basa en un enfoque por competencias, combinando la teoría con una fuerte carga de prácticas técnicas, creación de proyectos y resolución de problemas reales.
+      </p>
+    </div>
+  </div>
+</div>
+
+<section class="wrap" id="diferencia">
+  <div class="card">
+    <h2>¿En qué se diferencia del bachillerato general?</h2>
+    <div class="table-scroll">
+      <table>
+        <tr>
+          <th>Característica</th>
+          <th>General</th>
+          <th>Desarrollo de Software</th>
+        </tr>
+        <tr>
+          <td class="no">Duración</td>
+          <td>2 años</td>
+          <td>3 años</td>
+        </tr>
+        <tr>
+          <td class="no">Formación</td>
+          <td>Académica amplia</td>
+          <td>Especializada en software</td>
+        </tr>
+        <tr>
+          <td class="no">Enfoque</td>
+          <td>Continuar a la universidad</td>
+          <td>Sector productivo o universidad</td>
+        </tr>
+        <tr>
+          <td class="no">Prácticas</td>
+          <td>Limitadas</td>
+          <td>Fuerte carga técnica</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span>Bachillerato Técnico en Desarrollo de Software</span>
+  <div class="visit-box">
+    <span id="visit-counter">—</span>
+    <span class="label">Visitas</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    try{
+      var key = 'bts_visit_count';
+      var count = parseInt(localStorage.getItem(key), 10);
+      if (isNaN(count)) count = 0;
+      count += 1;
+      localStorage.setItem(key, count);
+      document.getElementById('visit-counter').textContent = count;
+    }catch(e){
+      document.getElementById('visit-counter').textContent = '1';
+    }
+  })();
+</script>
+
+</body>
+</html>

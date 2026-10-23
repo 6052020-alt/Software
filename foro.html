@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Foro de Preguntas y Respuestas · Bachillerato en Desarrollo de Software</title>
+<style>
+  :root{
+    --ink: #1E2430;
+    --ink-dim: #5B6472;
+    --bg: #FFFFFF;
+    --bg-soft: #F3F5F8;
+    --line: #E4E7EC;
+    --accent: #2E6F63;
+    --accent-warm: #D97D3D;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{
+    font-family: Georgia, 'Times New Roman', serif;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.6;
+  }
+  .wrap{ max-width:760px; margin:0 auto; padding:0 24px; }
+
+  header{ border-bottom:1px solid var(--line); padding:20px 0; }
+  header .wrap{ display:flex; justify-content:space-between; align-items:center; font-family: Arial, sans-serif; font-size:14px; color:var(--ink-dim); flex-wrap:wrap; gap:8px; }
+  header a{ color:var(--ink-dim); text-decoration:none; }
+  header a:hover{ color:var(--ink); }
+
+  .hero{ padding:56px 0 32px; }
+  .hero .label{ font-family:Arial, sans-serif; font-size:13px; letter-spacing:0.06em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
+  h1{ font-size:32px; font-weight:400; line-height:1.25; margin-bottom:22px; text-align:center; }
+  .desc{ font-size:16.5px; color:var(--ink-dim); max-width:64ch; text-align:justify; margin:0 auto; }
+
+  section{ padding:36px 0; border-top:1px solid var(--line); }
+  h2{ font-size:22px; font-weight:400; margin-bottom:20px; text-align:center; }
+
+  /* Formulario para nueva pregunta */
+  .ask-box{
+    background:var(--bg-soft);
+    border:1px solid var(--line);
+    padding:24px;
+    font-family:Arial, sans-serif;
+  }
+  .ask-box label{ display:block; font-size:13px; color:var(--ink-dim); margin-bottom:6px; margin-top:14px; }
+  .ask-box label:first-child{ margin-top:0; }
+  .ask-box input[type="text"],
+  .ask-box select,
+  .ask-box textarea{
+    width:100%; padding:10px 12px; font-family:Arial, sans-serif; font-size:14px;
+    border:1px solid var(--line); background:#fff; color:var(--ink);
+  }
+  .ask-box textarea{ resize:vertical; min-height:80px; }
+  .btn{
+    font-family:Arial, sans-serif; font-size:14px;
+    display:inline-block; padding:11px 20px; cursor:pointer;
+    border:1px solid var(--ink); color:var(--ink); text-decoration:none; background:#fff;
+    margin-top:18px;
+  }
+  .btn-fill{ background:var(--accent); border-color:var(--accent); color:#fff; }
+  .btn:hover{ background:#eef0f2; }
+  .btn-fill:hover{ background:var(--accent-warm); border-color:var(--accent-warm); }
+
+  /* Filtros */
+  .filters{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px; font-family:Arial, sans-serif; }
+  .filter-chip{
+    font-size:12.5px; padding:6px 14px; border:1px solid var(--line); color:var(--ink-dim);
+    cursor:pointer; background:#fff;
+  }
+  .filter-chip.active{ background:var(--accent); border-color:var(--accent); color:#fff; }
+
+  /* Lista de preguntas */
+  .question{ border-bottom:1px solid var(--line); padding:24px 0; }
+  .question:first-child{ padding-top:0; }
+  .q-meta{ font-family:Arial, sans-serif; font-size:12px; color:var(--accent); letter-spacing:0.03em; margin-bottom:6px; text-transform:uppercase; }
+  .q-title{ font-size:18px; margin-bottom:6px; cursor:pointer; }
+  .q-sub{ font-family:Arial, sans-serif; font-size:12.5px; color:var(--ink-dim); margin-bottom:10px; }
+  .q-body{ display:none; }
+  .q-body.open{ display:block; }
+
+  .answers{ margin-top:14px; padding-left:18px; border-left:2px solid var(--line); }
+  .answer{ margin-bottom:14px; font-size:14.5px; color:var(--ink); }
+  .answer:last-child{ margin-bottom:0; }
+  .a-meta{ font-family:Arial, sans-serif; font-size:11.5px; color:var(--ink-dim); margin-top:3px; }
+
+  .answer-form{ margin-top:16px; font-family:Arial, sans-serif; }
+  .answer-form input[type="text"],
+  .answer-form textarea{
+    width:100%; padding:8px 10px; font-family:Arial, sans-serif; font-size:13.5px;
+    border:1px solid var(--line); margin-bottom:8px;
+  }
+  .answer-form textarea{ min-height:60px; resize:vertical; }
+
+  .empty-msg{ font-family:Arial, sans-serif; font-size:14px; color:var(--ink-dim); text-align:center; padding:20px 0; }
+
+  footer{ padding:36px 0; border-top:1px solid var(--line); font-family:Arial, sans-serif; font-size:13px; color:var(--ink-dim); text-align:center; }
+
+  @media (max-width: 640px){
+    .wrap{ padding:0 18px; }
+    header .wrap{ flex-direction:column; align-items:flex-start; gap:4px; }
+    h1{ font-size:26px; }
+    .hero{ padding:40px 0 24px; }
+  }
+
+  @media (max-width: 640px){
+    .desc{ text-align:left; }
+    /* 16px evita que iPhone haga zoom al tocar un campo */
+    .ask-box input[type="text"], .ask-box select, .ask-box textarea,
+    .answer-form input[type="text"], .answer-form textarea{ font-size:16px; }
+    .ask-box{ padding:18px; }
+    .btn{ width:100%; text-align:center; }
+    .q-title{ font-size:17px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span>Bachillerato · Desarrollo de Software</span>
+    <a href="index.html">← Página principal</a>
+  </div>
+</header>
+
+<div class="hero wrap">
+  <h1>FORO DE PREGUNTAS Y RESPUESTAS</h1>
+  <p class="desc">
+    Un espacio para resolver dudas sobre el Bachillerato Técnico Productivo en Desarrollo de Software y Servicios Digitales: generalidades, áreas de enfoque, objetivos, malla curricular y perfil de ingreso y egreso. Publica tu pregunta o responde a las de otros visitantes.
+  </p>
+</div>
+
+<section class="wrap">
+  <h2>Hacer una pregunta</h2>
+  <div class="ask-box">
+    <label for="q-name">Tu nombre</label>
+    <input type="text" id="q-name" placeholder="Ej. María Pérez">
+
+    <label for="q-category">Categoría</label>
+    <select id="q-category">
+      <option value="Generalidades">Generalidades</option>
+      <option value="Áreas de enfoque">Áreas de enfoque</option>
+      <option value="Objetivos">Objetivos</option>
+      <option value="Perfil de ingreso y egreso">Perfil de ingreso y egreso</option>
+      <option value="Malla curricular">Malla curricular</option>
+      <option value="Otro">Otro</option>
+    </select>
+
+    <label for="q-title">Tu pregunta</label>
+    <input type="text" id="q-title" placeholder="Escribe tu pregunta aquí...">
+
+    <label for="q-detail">Detalles adicionales (opcional)</label>
+    <textarea id="q-detail" placeholder="Agrega contexto si lo necesitas..."></textarea>
+
+    <button class="btn btn-fill" onclick="publicarPregunta()">Publicar pregunta</button>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>Preguntas de la comunidad</h2>
+  <div class="filters" id="filters"></div>
+  <div id="question-list"></div>
+</section>
+
+<footer class="wrap">
+  Foro del Bachillerato Técnico en Desarrollo de Software y Servicios Digitales
+</footer>
+
+<script>
+  const STORAGE_KEY = 'btpdss_forum_questions';
+  const CATEGORIES = ['Todas', 'Generalidades', 'Áreas de enfoque', 'Objetivos', 'Perfil de ingreso y egreso', 'Malla curricular', 'Otro'];
+  let currentFilter = 'Todas';
+
+  const preguntasIniciales = [
+    {
+      id: 1,
+      category: 'Generalidades',
+      title: '¿Cuánto dura el bachillerato y qué título se obtiene?',
+      detail: '',
+      author: 'Coordinación académica',
+      date: '2026-09-01',
+      answers: [
+        { text: 'Dura 3 años y otorga el título de Bachiller Técnico Productivo en Desarrollo de Software y Servicios Digitales.', author: 'Equipo docente', date: '2026-09-01' }
+      ]
+    },
+    {
+      id: 2,
+      category: 'Áreas de enfoque',
+      title: '¿Qué áreas técnicas cubre el plan de estudios?',
+      detail: '',
+      author: 'Coordinación académica',
+      date: '2026-09-01',
+      answers: [
+        { text: 'Cuatro pilares: Desarrollo de Software y Gestión de Datos, Desarrollo Web e Inteligencia Artificial, Infraestructura/Redes/Soporte, y Emprendimiento y Gestiones de TI.', author: 'Equipo docente', date: '2026-09-01' }
+      ]
+    },
+    {
+      id: 3,
+      category: 'Perfil de ingreso y egreso',
+      title: '¿Qué se requiere para ingresar al primer año?',
+      detail: '',
+      author: 'Coordinación académica',
+      date: '2026-09-01',
+      answers: [
+        { text: 'Haber cursado noveno grado, además de contar con habilidades de gestión de información, comunicación, resolución de problemas y competencias digitales básicas.', author: 'Equipo docente', date: '2026-09-01' }
+      ]
+    }
+  ];
+
+  function cargarPreguntas(){
+    try{
+      const data = localStorage.getItem(STORAGE_KEY);
+      if(!data){
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(preguntasIniciales));
+        return preguntasIniciales;
+      }
+      return JSON.parse(data);
+    }catch(e){
+      return preguntasIniciales;
+    }
+  }
+
+  function guardarPreguntas(preguntas){
+    try{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(preguntas));
+    }catch(e){ /* almacenamiento no disponible */ }
+  }
+
+  function formatearFecha(iso){
+    const d = new Date(iso);
+    if(isNaN(d)) return iso;
+    return d.toLocaleDateString('es-ES', { year:'numeric', month:'short', day:'numeric' });
+  }
+
+  function renderFiltros(){
+    const cont = document.getElementById('filters');
+    cont.innerHTML = '';
+    CATEGORIES.forEach(cat => {
+      const chip = document.createElement('div');
+      chip.className = 'filter-chip' + (cat === currentFilter ? ' active' : '');
+      chip.textContent = cat;
+      chip.onclick = () => { currentFilter = cat; renderTodo(); };
+      cont.appendChild(chip);
+    });
+  }
+
+  function renderPreguntas(){
+    const preguntas = cargarPreguntas();
+    const cont = document.getElementById('question-list');
+    cont.innerHTML = '';
+
+    const filtradas = currentFilter === 'Todas'
+      ? preguntas
+      : preguntas.filter(p => p.category === currentFilter);
+
+    if(filtradas.length === 0){
+      cont.innerHTML = '<p class="empty-msg">Aún no hay preguntas en esta categoría. ¡Sé el primero en preguntar!</p>';
+      return;
+    }
+
+    filtradas.slice().reverse().forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'question';
+
+      const nAnswers = p.answers.length;
+      div.innerHTML = `
+        <div class="q-meta">${p.category}</div>
+        <div class="q-title" onclick="toggleQuestion(${p.id})">${escapeHtml(p.title)}</div>
+        <div class="q-sub">Preguntado por ${escapeHtml(p.author)} · ${formatearFecha(p.date)} · ${nAnswers} respuesta${nAnswers !== 1 ? 's' : ''}</div>
+        <div class="q-body" id="body-${p.id}">
+          ${p.detail ? `<p style="color:var(--ink-dim); font-size:14.5px; margin-bottom:10px;">${escapeHtml(p.detail)}</p>` : ''}
+          <div class="answers">
+            ${p.answers.map(a => `
+              <div class="answer">
+                ${escapeHtml(a.text)}
+                <div class="a-meta">— ${escapeHtml(a.author)}, ${formatearFecha(a.date)}</div>
+              </div>
+            `).join('') || '<p style="font-size:13.5px; color:var(--ink-dim);">Todavía no hay respuestas.</p>'}
+          </div>
+          <div class="answer-form">
+            <input type="text" id="ans-name-${p.id}" placeholder="Tu nombre">
+            <textarea id="ans-text-${p.id}" placeholder="Escribe tu respuesta..."></textarea>
+            <button class="btn" onclick="responder(${p.id})">Responder</button>
+          </div>
+        </div>
+      `;
+      cont.appendChild(div);
+    });
+  }
+
+  function renderTodo(){
+    renderFiltros();
+    renderPreguntas();
+  }
+
+  function toggleQuestion(id){
+    const el = document.getElementById('body-' + id);
+    if(el) el.classList.toggle('open');
+  }
+
+  function publicarPregunta(){
+    const nombre = document.getElementById('q-name').value.trim() || 'Anónimo';
+    const categoria = document.getElementById('q-category').value;
+    const titulo = document.getElementById('q-title').value.trim();
+    const detalle = document.getElementById('q-detail').value.trim();
+
+    if(!titulo){
+      alert('Por favor escribe tu pregunta antes de publicar.');
+      return;
+    }
+
+    const preguntas = cargarPreguntas();
+    const nuevaId = preguntas.length ? Math.max(...preguntas.map(p => p.id)) + 1 : 1;
+
+    preguntas.push({
+      id: nuevaId,
+      category: categoria,
+      title: titulo,
+      detail: detalle,
+      author: nombre,
+      date: new Date().toISOString().slice(0,10),
+      answers: []
+    });
+
+    guardarPreguntas(preguntas);
+
+    document.getElementById('q-name').value = '';
+    document.getElementById('q-title').value = '';
+    document.getElementById('q-detail').value = '';
+
+    currentFilter = 'Todas';
+    renderTodo();
+  }
+
+  function responder(id){
+    const nombreInput = document.getElementById('ans-name-' + id);
+    const textoInput = document.getElementById('ans-text-' + id);
+    const nombre = nombreInput.value.trim() || 'Anónimo';
+    const texto = textoInput.value.trim();
+
+    if(!texto){
+      alert('Escribe una respuesta antes de enviarla.');
+      return;
+    }
+
+    const preguntas = cargarPreguntas();
+    const pregunta = preguntas.find(p => p.id === id);
+    if(pregunta){
+      pregunta.answers.push({
+        text: texto,
+        author: nombre,
+        date: new Date().toISOString().slice(0,10)
+      });
+      guardarPreguntas(preguntas);
+      renderTodo();
+      setTimeout(() => toggleQuestion(id), 0);
+    }
+  }
+
+  function escapeHtml(str){
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  renderTodo();
+</script>
+
+</body>
+</html>

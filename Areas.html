@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Áreas de Enfoque y Competencias · Bachillerato en Desarrollo de Software</title>
+<style>
+  :root {
+    --ink: #101828;
+    --ink-dim: #475467;
+    --bg: #F8FAFC;
+    --card-bg: #FFFFFF;
+    --line: #EAECF0;
+    --accent: #0D9488;
+    --accent-light: #F0FDFA;
+    --accent-dark: #115E59;
+    --radius: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.7;
+  }
+  .nav-bar {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--line);
+    padding: 12px 0;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 4px rgba(16, 24, 40, 0.03);
+  }
+    .btn {
+    font-family: system-ui, sans-serif; 
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-block; 
+    padding: 8px 14px;
+    border: 1px solid var(--line); 
+    color: var(--ink-dim); 
+    background: var(--bg);
+    text-decoration: none; 
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .btn-fill { 
+    background: var(--accent); 
+    border-color: var(--accent); 
+    color: #fff; 
+  }
+
+  .btn:hover { 
+    background: var(--accent-light); 
+    color: var(--accent-dark);
+    border-color: rgba(13, 148, 136, 0.3);
+    transform: translateY(-1px);
+  }
+
+  .btn-fill:hover { 
+    background: var(--accent-dark); 
+    border-color: var(--accent-dark); 
+    color: #fff; 
+  }
+
+  .nav-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .wrap { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+  /* Encabezado */
+  header { 
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--line); 
+    padding: 18px 0; 
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 1px 3px rgba(16, 24, 40, 0.05);
+  }
+  header .wrap { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    font-size: 14px; 
+    font-weight: 500;
+    color: var(--ink-dim); 
+  }
+  header a { 
+    color: var(--accent); 
+    text-decoration: none; 
+    font-weight: 600;
+    transition: color 0.2s ease;
+  }
+  header a:hover { color: var(--accent-dark); text-decoration: underline; }
+
+  /* Hero Section */
+  .hero { 
+    padding: 60px 0 40px; 
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  h1 { 
+    font-size: 36px; 
+    font-weight: 800; 
+    line-height: 1.2; 
+    margin-bottom: 20px; 
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .desc { 
+    font-size: 17px; 
+    color: var(--ink-dim); 
+    max-width: 68ch; 
+    margin: 0 auto;
+    text-align: justify;
+  }
+
+  /* Secciones con Tarjetas */
+  .content-section {
+    padding: 10px 0 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    box-shadow: 0 4px 6px -1px rgba(16, 24, 40, 0.02), 0 2px 4px -2px rgba(16, 24, 40, 0.02);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .card:hover {
+    box-shadow: 0 10px 15px -3px rgba(16, 24, 40, 0.05), 0 4px 6px -4px rgba(16, 24, 40, 0.05);
+    border-color: rgba(13, 148, 136, 0.3);
+  }
+
+  h3 { 
+    font-size: 20px; 
+    font-weight: 700; 
+    margin-bottom: 12px; 
+    color: var(--accent-dark);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  h3::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 18px;
+    background: var(--accent);
+    border-radius: 4px;
+  }
+
+  p { 
+    color: var(--ink-dim); 
+    font-size: 15.5px; 
+    text-align: justify; 
+  }
+
+  footer { 
+    padding: 36px 0; 
+    border-top: 1px solid var(--line); 
+    font-size: 13px; 
+    color: var(--ink-dim); 
+    text-align: center;
+  }
+
+  /* Adaptación a dispositivos móviles */
+  @media (max-width: 640px) {
+    .wrap { padding: 0 16px; }
+    header .wrap { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .hero { padding: 40px 0 24px; }
+    h1 { font-size: 26px; }
+    .card { padding: 20px; }
+    h3 { font-size: 18px; }
+    .desc, p { text-align: left !important; font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span>Bachillerato · Desarrollo de Software</span>
+    <a href="index.html">← Página principal</a>
+  </div>
+</header>
+<nav class="nav-bar">
+  <div class="wrap nav-row">
+    <a href="malla_curricular_responsive.html" class="btn btn-fill">Malla curricular</a>
+    <a href="Areas.html" class="btn">Áreas de enfoque</a>
+    <a href="objetivos.html" class="btn">Objetivos</a>
+    <a href="Ingreso_y_egreso.html" class="btn">Perfil de ingreso y egreso</a>
+    <a href="generalidades.html" class="btn">Generalidades</a>
+    <a href="imagen (1).html" class="btn">Galería de fotos</a>
+    <a href="videos.html" class="btn">Galería de videos</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSe-04WR7sh0UVCAVAiGhWc1ouHj1L_gCvop00zb4R1SMkkXpw/viewform?usp=publish-editor" class="btn">Formulario para preguntas</a>
+  </div>
+</nav>
+
+<div class="hero wrap">
+  <h1>Áreas de Enfoque y Competencias</h1>
+  <p class="desc">
+    El plan de estudios está diseñado para cubrir las demandas actuales del mercado digital e industrial, abarcando cuatro pilares clave orientados a la práctica profesional y la innovación tecnológica.
+  </p>
+</div>
+
+<section class="content-section wrap">
+  <div class="card">
+    <h3>Desarrollo de Software y Gestión de Datos</h3>
+    <p>Creación, programación y despliegue de aplicaciones de escritorio, móviles o empresariales, así como el diseño, consulta y administración avanzada de bases de datos relacionales y no relacionales.</p>
+  </div>
+  
+  <div class="card">
+    <h3>Desarrollo Web e Inteligencia Artificial</h3>
+    <p>Diseño de interfaces usables e intuitivas, integración de servicios en la nube, APIs y la incorporación de herramientas de inteligencia artificial con criterios sólidos de productividad empresarial y ética.</p>
+  </div>
+  
+  <div class="card">
+    <h3>Infraestructura, Redes y Soporte</h3>
+    <p>Instalación, configuración y mantenimiento preventivo y correctivo de equipos informáticos, redes de área local (LAN) y nociones elementales de ciberseguridad para garantizar la continuidad de los sistemas.</p>
+  </div>
+  
+  <div class="card">
+    <h3>Emprendimiento y Gestión de TI</h3>
+    <p>Formulación de planes de negocio viables, presupuestos enfocados en proyectos tecnológicos y la conceptualización de iniciativas o microempresas digitales rentables.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Bachillerato Técnico Productivo en Desarrollo de Software y Servicios Digitales
+  </div>
+</footer>
+
+</body>
+</html>
