@@ -6,166 +6,200 @@
     <title>Equipo tecnológico</title>
 
     <style>
+        :root {
+            --card-bg: #ffffff;
+            --line: #cbd5e1;
+            --navy: #1f3a5f;
+            --ink: #1f2937;
+            --ink-dim: #4b5563;
+            --accent: #2563eb;
+        }
+
         body {
             margin: 0;
             font-family: "Segoe UI", Arial, sans-serif;
             text-align: center;
             background-color: #e8edf3;
-            color: #1f2937;
+            color: var(--ink);
         }
-        .nav-bar {
-    background: var(--card-bg);
-    border-bottom: 1px solid var(--line);
-    padding: 12px 0;
-    margin-bottom: 24px;
-    box-shadow: 0 2px 4px rgba(16, 24, 40, 0.03);
-  }
 
-.btn {
-    font-size: 13px;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 14px;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    color: #000000;
-    background: rgba(109, 104, 104, 0.08);
-    text-decoration: none;
-    border-radius: 8px;
-    text-align: center;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-    cursor: pointer;
-  }
-
-  .btn:hover {
-    background: #fff9f9;
-    color: var(--navy);
-    border-color: #ffffff;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  .btn-fill {
-    background: #ffffff;
-    color: var(--navy);
-    border-color: #000000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  .btn-fill:hover {
-    background: #e2e8f0;
-    color: var(--navy);
-    border-color: #e2e8f0;
-  }
-
-
-         .wrap{ max-width:760px; margin:0 auto; padding:0 24px; }
-
-  header{ border-bottom:1px solid var(--line); padding:20px 0; }
-  header .wrap{ display:flex; justify-content:space-between; align-items:center; font-family: Arial, sans-serif; font-size:14px; color:var(--ink-dim); }
-  header a{ color:var(--ink-dim); text-decoration:none; }
-  header a:hover{ color:var(--ink); }
-
-  .hero{ padding:56px 0 36px; }
-  .hero .label{ font-family:Arial, sans-serif; font-size:13px; letter-spacing:0.06em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
-  h1{ font-size:32px; font-weight:400; line-height:1.25; margin-bottom:22px; text-align: center; }
-  .desc{ font-size:16.5px; color:var(--ink-dim); max-width:64ch; }
-
-  section{ padding:36px 0; border-top:1px solid var(--line); }
-  .sec-num{ font-family:Arial, sans-serif; font-size:12.5px; color:var(--accent); letter-spacing:0.04em; margin-bottom:8px; }
-  h2{ font-size:22px; font-weight:400; margin-bottom:12px; text-align: center; }
-  .intro{ font-size:15.5px; color:var(--ink-dim); max-width:66ch; margin-bottom:24px; }
-
-  h3{ font-size:16px; font-weight:400; color:var(--ink); margin:28px 0 14px; text-align: center; } 
-
+        /* Encabezado Principal */
         h1 {
-            background-color: #1f3a5f;
+            background-color: var(--navy);
             color: white;
             margin: 0;
-            padding: 30px 15px;
-            font-size: 36px;
+            padding: 25px 15px;
+            font-size: 28px;
         }
 
-        .galeria {
-            width: 90%;
+        header {
+            border-bottom: 1px solid var(--line);
+            padding: 15px 0;
+            background-color: var(--card-bg);
+        }
+
+        header .wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: var(--ink-dim);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        header a {
+            color: var(--ink-dim);
+            text-decoration: none;
+        }
+
+        header a:hover {
+            color: var(--ink);
+        }
+
+        /* Barra de Navegación Responsiva */
+        .nav-bar {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--line);
+            padding: 12px 0;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 4px rgba(16, 24, 40, 0.03);
+        }
+
+        .nav-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn {
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #000000;
+            background: rgba(109, 104, 104, 0.08);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #fff9f9;
+            color: var(--navy);
+            border-color: #ffffff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-fill {
+            background: #ffffff;
+            color: var(--navy);
+            border-color: #000000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-fill:hover {
+            background: #e2e8f0;
+            border-color: #e2e8f0;
+        }
+
+        .wrap {
             max-width: 1100px;
-            margin: 35px auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
+            margin: 0 auto;
+            padding: 0 16px;
         }
 
-        figure {
-            margin: 0;
-            background-color: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-        }
-
-        figure img {
-            width: 100%;
-            height: 250px;
-            object-fit: contain;
-            display: block;
-            border-radius: 6px;
-        }
-
-        figcaption {
-            margin-top: 15px;
-            font-size: 20px;
-            font-weight: normal;
-            color: #1f3a5f;
-        }
-
+        /* Sección de Videos Adaptable */
         .videos {
-            width: 90%;
+            width: 100%;
             max-width: 800px;
-            margin: 40px auto;
+            margin: 20px auto;
+            padding: 0 15px;
+            box-sizing: border-box;
         }
 
         .video {
             background-color: white;
-            padding: 20px;
-            margin-bottom: 30px;
+            padding: 15px;
+            margin-bottom: 25px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
         }
 
         .video video {
             width: 100%;
+            height: auto;
             max-height: 450px;
             border-radius: 6px;
+            outline: none;
+            background: #000;
         }
 
         .video p {
             margin-top: 15px;
-            font-size: 20px;
-            color: #1f3a5f;
+            font-size: 18px;
+            color: var(--navy);
+            font-weight: 500;
+        }
+
+        /* Media Queries para celulares pequeños */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 24px;
+                padding: 20px 10px;
+            }
+
+            header .wrap {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .video p {
+                font-size: 16px;
+            }
         }
     </style>
-    </head>
+</head>
+<body>
+
     <header>
-  <div class="wrap">
-    <span>Bachillerato · Desarrollo de Software</span>
-    <a href="index.html">← Página principal</a>
-  </div>
-</header>
-<nav class="nav-bar">
-  <div class="wrap nav-row">
-        <a href="malla_curricular_responsive.html" class="btn btn-fill">Malla curricular</a>
-    <a href="Areas.html" class="btn">Áreas de enfoque</a>
-    <a href="objetivos.html" class="btn">Objetivos</a>
-    <a href="Ingreso_y_egreso.html" class="btn">Perfil de ingreso y egreso</a>
-    <a href="generalidades.html" class="btn">Generalidades</a>
-    <a href="imagen (1).html" class="btn">Galería de fotos</a>
-    <a href="videos.html" class="btn">Galería de videos</a>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSe-04WR7sh0UVCAVAiGhWc1ouHj1L_gCvop00zb4R1SMkkXpw/viewform?usp=publish-editor" class="btn">Formulario para</a>
-</div>
-</nav>
-     <!-- SECCIÓN DE VIDEOS -->
+        <div class="wrap">
+            <span>Bachillerato · Desarrollo de Software</span>
+            <a href="index.html">← Página principal</a>
+        </div>
+    </header>
+
+    <nav class="nav-bar">
+        <div class="wrap nav-row">
+            <a href="malla_curricular_responsive.html" class="btn btn-fill">Malla curricular</a>
+            <a href="Areas.html" class="btn">Áreas de enfoque</a>
+            <a href="objetivos.html" class="btn">Objetivos</a>
+            <a href="Ingreso_y_egreso.html" class="btn">Perfil de ingreso y egreso</a>
+            <a href="generalidades.html" class="btn">Generalidades</a>
+            <a href="imagen (1).html" class="btn">Galería de fotos</a>
+            <a href="videos.html" class="btn">Galería de videos</a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSe-04WR7sh0UVCAVAiGhWc1ouHj1L_gCvop00zb4R1SMkkXpw/viewform?usp=publish-editor" class="btn">Formulario</a>
+        </div>
+    </nav>
+
+    <!-- SECCIÓN DE VIDEOS -->
     <div class="videos">
 
         <div class="video">
@@ -176,25 +210,31 @@
             <p>Video de impresora 3D</p>
         </div>
 
-<div class="video">
+        <div class="video">
             <video controls>
                 <source src="Prueba de arduino.mp4" type="video/mp4">
                 Tu navegador no puede reproducir este video.
             </video>
             <p>Prueba de arduino</p>
         </div>
-<video controls>
+
+        <div class="video">
+            <video controls>
                 <source src="Control de LEDS desde el celular.mp4" type="video/mp4">
                 Tu navegador no puede reproducir este video.
             </video>
             <p>Control de LEDS desde el celular</p>
         </div>
-  <video controls>
+
+        <div class="video">
+            <video controls>
                 <source src="Demostracion en macetas.mp4" type="video/mp4">
                 Tu navegador no puede reproducir este video.
             </video>
-            <p>Demostracion en macetas</p>
+            <p>Demostración en macetas</p>
         </div>
+
+    </div>
 
 </body>
 </html>
