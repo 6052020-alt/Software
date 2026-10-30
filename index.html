@@ -1,9 +1,12 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bachillerato Técnico en Desarrollo de Software y Servicios Digitales</title>
+<!-- Font Awesome para iconos de tecnología y chat -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
   :root {
     --ink: #101828;
@@ -24,6 +27,8 @@
     color: var(--ink);
     background: var(--bg);
     line-height: 1.7;
+    position: relative;
+    min-height: 100vh;
   }
 
   .wrap { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
@@ -58,7 +63,7 @@
     font-weight: 700;
   }
 
-  /* Botones de navegación en la parte superior (Fila horizontal / Barra de navegación) */
+  /* Botones de navegación en la parte superior */
   .nav-bar {
     background: var(--card-bg);
     border-bottom: 1px solid var(--line);
@@ -89,6 +94,7 @@
     text-align: center;
     transition: all 0.2s ease;
     white-space: nowrap;
+    cursor: pointer;
   }
 
   .btn-fill { 
@@ -200,7 +206,320 @@
   .visit-box .label { font-size: 11px; letter-spacing: 0.04em; color: var(--ink-dim); text-transform: uppercase; display: block; font-weight: 600;}
   #visit-counter { font-size: 24px; font-weight: bold; color: var(--accent); line-height: 1.2; }
 
-  /* Mobile responsiveness */
+  /* ==========================================================================
+     ESTILOS DEL ASISTENTE VIRTUAL / CHATBOT FLOTANTE
+     ========================================================================== */
+  
+  /* Botón Flotante (FAB) */
+  .chatbot-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(13, 148, 136, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    z-index: 9999;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+  }
+
+  .chatbot-fab:hover {
+    transform: scale(1.08);
+    box-shadow: 0 8px 24px rgba(13, 148, 136, 0.5);
+  }
+
+  /* Badge de Pulso en el Botón Flotante */
+  .chatbot-fab-pulse {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 14px;
+    height: 14px;
+    background-color: #22c55e;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+  }
+
+  .chatbot-fab-pulse::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -2px;
+    left: -2px;
+    border-radius: 50%;
+    border: 2px solid #22c55e;
+    animation: pulse-ring 1.8s infinite;
+  }
+
+  @keyframes pulse-ring {
+    0% { transform: scale(0.9); opacity: 0.8; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+
+  /* Ventana del Chat */
+  .chat-window {
+    position: fixed;
+    bottom: 96px;
+    right: 24px;
+    width: 380px;
+    max-width: calc(100vw - 32px);
+    height: 540px;
+    max-height: calc(100vh - 120px);
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(16, 24, 40, 0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.95);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  }
+
+  .chat-window.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+
+  /* Header del Chat */
+  .chat-header {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: #ffffff;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .chat-header-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .chat-avatar {
+    width: 40px;
+    height: 40px;
+    background: #ffffff;
+    color: var(--accent-dark);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .chat-title {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chat-title strong {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .chat-status {
+    font-size: 11px;
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    background-color: #4ade80;
+    border-radius: 50%;
+  }
+
+  .chat-close-btn {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0.8;
+    padding: 4px;
+    transition: opacity 0.2s;
+  }
+
+  .chat-close-btn:hover {
+    opacity: 1;
+  }
+
+  /* Cuerpo de Mensajes */
+  .chat-body {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--bg);
+  }
+
+  .chat-msg {
+    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    word-break: break-word;
+    animation: fadeIn 0.25s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .chat-msg.bot {
+    align-self: flex-start;
+    background: var(--card-bg);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-top-left-radius: 4px;
+  }
+
+  .chat-msg.user {
+    align-self: flex-end;
+    background: var(--accent);
+    color: #ffffff;
+    border-top-right-radius: 4px;
+  }
+
+  .chat-msg ul {
+    margin-left: 18px;
+    margin-top: 6px;
+  }
+
+  /* Chips / Preguntas Rápidas */
+  .chat-chips-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink-dim);
+    margin-top: 6px;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .chat-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .chip-btn {
+    background: var(--accent-light);
+    color: var(--accent-dark);
+    border: 1px solid rgba(13, 148, 136, 0.2);
+    border-radius: 16px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .chip-btn:hover {
+    background: var(--accent);
+    color: #ffffff;
+  }
+
+  /* Indicador de escritura */
+  .typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 14px;
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    border-top-left-radius: 4px;
+    width: fit-content;
+    align-self: flex-start;
+  }
+
+  .typing-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--ink-dim);
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: typingBounce 1.4s infinite ease-in-out;
+  }
+
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes typingBounce {
+    0%, 100% { transform: translateY(0); opacity: 0.4; }
+    50% { transform: translateY(-4px); opacity: 0.9; }
+  }
+
+  /* Input del Chat */
+  .chat-footer {
+    padding: 12px;
+    background: var(--card-bg);
+    border-top: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .chat-input {
+    flex: 1;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 8px 14px;
+    font-size: 13.5px;
+    outline: none;
+    font-family: inherit;
+    transition: border-color 0.2s;
+  }
+
+  .chat-input:focus {
+    border-color: var(--accent);
+  }
+
+  .chat-send-btn {
+    background: var(--accent);
+    color: #ffffff;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: background-color 0.2s;
+  }
+
+  .chat-send-btn:hover {
+    background: var(--accent-dark);
+  }
+
+  /* Responsive para el Chat */
   @media (max-width: 640px){
     .wrap { padding: 0 16px; }
     header .wrap { flex-direction: column; align-items: flex-start; gap: 6px; }
@@ -210,6 +529,20 @@
     .nav-row { flex-direction: column; align-items: stretch; }
     .btn { text-align: center; }
     footer { flex-direction: column; align-items: center; text-align: center; }
+
+    /* Ajustes móviles para el Chatbot */
+    .chat-window {
+      right: 12px;
+      left: 12px;
+      width: calc(100vw - 24px);
+      bottom: 84px;
+      height: 480px;
+    }
+
+    .chatbot-fab {
+      bottom: 16px;
+      right: 16px;
+    }
   }
 </style>
 </head>
@@ -232,14 +565,14 @@
     <a href="generalidades.html" class="btn">Generalidades</a>
     <a href="imagen (1).html" class="btn">Galería de fotos</a>
     <a href="videos.html" class="btn">Galería de videos</a>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSe-04WR7sh0UVCAVAiGhWc1ouHj1L_gCvop00zb4R1SMkkXpw/viewform?usp=publish-editor" class="btn">Formulario para preguntas</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSe-04WR7sh0UVCAVAiGhWc1ouHj1L_gCvop00zb4R1SMkkXpw/viewform?usp=publish-editor" target="_blank" class="btn">Formulario para preguntas</a>
   </div>
 </nav>
 
 <div class="wrap">
   <div style="text-align: center;">
     <figure>
-      <img src="INNG1.jpg" width="400px" height="300px" style="max-width: 100%; height: auto; border-radius: var(--radius);">
+      <img src="INNG1.jpg" alt="Instalaciones del Bachillerato" width="400" height="300" style="max-width: 100%; height: auto; border-radius: var(--radius);" onerror="this.src='https://placehold.co/400x300/0d9488/ffffff?text=Desarrollo+de+Software';">
     </figure>
     <div class="hero">
       <h1>Bachillerato Técnico en Desarrollo de Software y Servicios Digitales</h1>
@@ -259,31 +592,35 @@
     <h2>¿En qué se diferencia del bachillerato general?</h2>
     <div class="table-scroll">
       <table>
-        <tr>
-          <th>Característica</th>
-          <th>General</th>
-          <th>Desarrollo de Software</th>
-        </tr>
-        <tr>
-          <td class="no">Duración</td>
-          <td>2 años</td>
-          <td>3 años</td>
-        </tr>
-        <tr>
-          <td class="no">Formación</td>
-          <td>Académica amplia</td>
-          <td>Especializada en software</td>
-        </tr>
-        <tr>
-          <td class="no">Enfoque</td>
-          <td>Continuar a la universidad</td>
-          <td>Sector productivo o universidad</td>
-        </tr>
-        <tr>
-          <td class="no">Prácticas</td>
-          <td>Limitadas</td>
-          <td>Fuerte carga técnica</td>
-        </tr>
+        <thead>
+          <tr>
+            <th>Característica</th>
+            <th>General</th>
+            <th>Desarrollo de Software</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="no">Duración</td>
+            <td>2 años</td>
+            <td>3 años</td>
+          </tr>
+          <tr>
+            <td class="no">Formación</td>
+            <td>Académica amplia</td>
+            <td>Especializada en software</td>
+          </tr>
+          <tr>
+            <td class="no">Enfoque</td>
+            <td>Continuar a la universidad</td>
+            <td>Sector productivo o universidad</td>
+          </tr>
+          <tr>
+            <td class="no">Prácticas</td>
+            <td>Limitadas</td>
+            <td>Fuerte carga técnica</td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
@@ -297,7 +634,65 @@
   </div>
 </footer>
 
+<!-- ==========================================================================
+     ESTRUCTURA DEL ASISTENTE VIRTUAL FLOTANTE (BOT)
+     ========================================================================== -->
+
+<!-- Botón Flotante del Chatbot -->
+<button class="chatbot-fab" id="chatbot-fab" title="Pregunta al Asistente Virtual">
+  <i class="fa-solid fa-robot"></i>
+  <span class="chatbot-fab-pulse"></span>
+</button>
+
+<!-- Ventana del Chatbot -->
+<div class="chat-window" id="chat-window">
+  <div class="chat-header">
+    <div class="chat-header-info">
+      <div class="chat-avatar">
+        <i class="fa-solid fa-code"></i>
+      </div>
+      <div class="chat-title">
+        <strong>DevBot El Salvador</strong>
+        <span class="chat-status"><span class="status-dot"></span> En línea · Asistente Técnico</span>
+      </div>
+    </div>
+    <button class="chat-close-btn" id="chat-close-btn" title="Cerrar chat">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <div class="chat-body" id="chat-body">
+    <!-- Mensaje de bienvenida -->
+    <div class="chat-msg bot">
+      ¡Hola! 👋 Soy <strong>DevBot</strong>, tu asistente virtual para el <strong>Bachillerato Técnico en Desarrollo de Software</strong> de El Salvador. 💻🇸🇻
+      <br><br>
+      ¿En qué te puedo ayudar hoy? Selecciona una pregunta rápida o escribe tu consulta abajo:
+    </div>
+
+    <!-- Opciones de acceso rápido -->
+    <div id="quick-chips-container">
+      <div class="chat-chips-title">Preguntas frecuentes:</div>
+      <div class="chat-chips">
+        <button class="chip-btn" onclick="sendQuickReply('Malla curricular y materias')">📚 Malla curricular</button>
+        <button class="chip-btn" onclick="sendQuickReply('Diferencias con Bto. General')">⚖️ vs Bto. General</button>
+        <button class="chip-btn" onclick="sendQuickReply('Perfil de ingreso y egreso')">🎯 Perfil estudiante</button>
+        <button class="chip-btn" onclick="sendQuickReply('Salida laboral y oportunidades')">💼 Salida laboral</button>
+        <button class="chip-btn" onclick="sendQuickReply('Duración y requisitos')">⏱️ Duración y Requisitos</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-footer">
+    <input type="text" id="chat-input" class="chat-input" placeholder="Escribe tu pregunta sobre la especialidad..." autocomplete="off">
+    <button id="chat-send-btn" class="chat-send-btn" title="Enviar mensaje">
+      <i class="fa-solid fa-paper-plane"></i>
+    </button>
+  </div>
+</div>
+
+<!-- Lógica JavaScript del Contador y del Asistente Virtual -->
 <script>
+  // Contador de Visitas (Preservado del código base)
   (function(){
     try{
       var key = 'bts_visit_count';
@@ -310,7 +705,157 @@
       document.getElementById('visit-counter').textContent = '1';
     }
   })();
+
+  // ==========================================================================
+  // LÓGICA DEL ASISTENTE VIRTUAL / CHATBOT
+  // ==========================================================================
+  const fab = document.getElementById('chatbot-fab');
+  const chatWindow = document.getElementById('chat-window');
+  const closeBtn = document.getElementById('chat-close-btn');
+  const chatBody = document.getElementById('chat-body');
+  const chatInput = document.getElementById('chat-input');
+  const sendBtn = document.getElementById('chat-send-btn');
+
+  // Alternar la visibilidad de la ventana del chat
+  fab.addEventListener('click', () => {
+    chatWindow.classList.toggle('active');
+    if (chatWindow.classList.contains('active')) {
+      chatInput.focus();
+    }
+  });
+
+  closeBtn.addEventListener('click', () => {
+    chatWindow.classList.remove('active');
+  });
+
+  // Enviar mensaje al presionar Enter
+  chatInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      handleUserMessage();
+    }
+  });
+
+  // Enviar mensaje al hacer clic en el botón de enviar
+  sendBtn.addEventListener('click', handleUserMessage);
+
+  function handleUserMessage() {
+    const text = chatInput.value.trim();
+    if (text === '') return;
+
+    // Agregar mensaje del usuario
+    appendMessage(text, 'user');
+    chatInput.value = '';
+
+    // Mostrar indicador de "escribiendo..."
+    showTypingIndicator();
+
+    // Generar respuesta del bot con un pequeño retardo simulado
+    setTimeout(() => {
+      removeTypingIndicator();
+      const botResponse = getBotKnowledgeResponse(text);
+      appendMessage(botResponse, 'bot');
+    }, 700);
+  }
+
+  // Función para las respuestas rápidas (Chips)
+  function sendQuickReply(text) {
+    chatInput.value = text;
+    handleUserMessage();
+  }
+
+  // Agregar mensaje al contenedor del chat
+  function appendMessage(content, sender) {
+    const msgDiv = document.createElement('div');
+    msgDiv.classList.add('chat-msg', sender);
+    msgDiv.innerHTML = content;
+    chatBody.appendChild(msgDiv);
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
+
+  // Indicador de escritura
+  function showTypingIndicator() {
+    const typingDiv = document.createElement('div');
+    typingDiv.classList.add('typing-indicator');
+    typingDiv.id = 'typing-indicator';
+    typingDiv.innerHTML = `
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+    `;
+    chatBody.appendChild(typingDiv);
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
+
+  function removeTypingIndicator() {
+    const indicator = document.getElementById('typing-indicator');
+    if (indicator) {
+      indicator.remove();
+    }
+  }
+
+  // Base de Conocimientos del Bachillerato Técnico en Desarrollo de Software de El Salvador
+  function getBotKnowledgeResponse(userQuery) {
+    const q = userQuery.toLowerCase();
+
+    if (q.includes('malla') || q.includes('materia') || q.includes('modulo') || q.includes('asignatura')) {
+      return `<strong>📚 Malla Curricular y Módulos:</strong><br>
+      El plan de estudios abarca 3 años estructurado por competencias e integra:<br>
+      <ul>
+        <li><strong>Formación Técnica:</strong> Lógica de Programación, Desarrollo Web (HTML, CSS, JS), Bases de Datos (SQL), Desarrollo Móvil, Redes y Mantenimiento.</li>
+        <li><strong>Formación General:</strong> Matemática, Lenguaje, Ciencias Naturales, Sociales e Inglés Técnico.</li>
+      </ul>
+      Puedes consultar el detalle completo en el botón <em>"Malla curricular"</em> del menú superior.`;
+    }
+
+    if (q.includes('diferencia') || q.includes('general') || q.includes('comparacion') || q.includes('vs')) {
+      return `<strong>⚖️ Diferencias con el Bachillerato General:</strong><br>
+      • <strong>Duración:</strong> 3 años (Técnico) vs 2 años (General).<br>
+      • <strong>Enfoque:</strong> Práctica técnica intensiva y creación de proyectos informáticos reales.<br>
+      • <strong>Oportunidades:</strong> Te permite incorporarte de inmediato al mercado laboral como programador Jr. O continuar tus estudios universitarios.`;
+    }
+
+    if (q.includes('ingreso') || q.includes('egreso') || q.includes('perfil') || q.includes('requisito')) {
+      return `<strong>🎯 Perfiles de Estudiante:</strong><br>
+      • <strong>Perfil de Ingreso:</strong> Graduados de 9° grado con gusto por la tecnología, pensamiento lógico, creatividad e interés por resolver problemas.<br>
+      • <strong>Perfil de Egreso:</strong> Desarrollador Web/Móvil Junior, gestor de bases de datos, técnico de soporte o preparado para Ingeniería de Sistemas.`;
+    }
+
+    if (q.includes('trabajo') || q.includes('laboral') || q.includes('empleo') || q.includes('salida') || q.includes('oportunidades')) {
+      return `<strong>💼 Salida Laboral y Campo de Trabajo:</strong><br>
+      Al egresar podrás desempeñarte como:<br>
+      <ul>
+        <li>Desarrollador Web Front-end o Back-end Junior.</li>
+        <li>Asistente en administración de bases de datos.</li>
+        <li>Técnico en soporte técnico e infraestructura básica.</li>
+        <li>Emprendedor de servicios digitales y freelance.</li>
+      </ul>`;
+    }
+
+    if (q.includes('duracion') || q.includes('tiempo') || q.includes('año')) {
+      return `<strong>⏱️ Duración:</strong><br>
+      Esta especialidad técnica vocacional tiene una duración oficial de <strong>3 años</strong> de formación integral bajo la normativa del MINED de El Salvador.`;
+    }
+
+    if (q.includes('hola') || q.includes('buenas') || q.includes('saludos') || q.includes('que tal')) {
+      return `¡Hola! 👋 ¿En qué puedo orientarte hoy sobre la especialidad en Desarrollo de Software? Pregúntame sobre materias, perfil de ingreso o ventajas laborales.`;
+    }
+
+    if (q.includes('gracias') || q.includes('excelente') || q.includes('bueno')) {
+      return `¡Con mucho gusto! 🚀 Si tienes más dudas, estaré aquí para ayudarte. ¡Mucho éxito en tu camino tecnológico!`;
+    }
+
+    // Respuesta por defecto si no hay coincidencia exacta
+    return `Entiendo tu inquietud sobre <em>"${userQuery}"</em>. 😊<br><br>
+    Te sugiero revisar las secciones principales en la barra superior o seleccionar uno de los botones rápidos de consulta (Malla curricular, Perfiles, Salida laboral).<br><br>
+    También puedes enviar tus preguntas específicas desde el enlace a nuestro <strong>Formulario para preguntas</strong>.`;
+  }
 </script>
 
 </body>
 </html>
+```
+    
+  
+    
+   
+   
